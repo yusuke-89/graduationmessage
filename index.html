@@ -1,42 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>卒業メッセージ</title>
-<style>
-body {
-  text-align: center;
-  font-family: sans-serif;
-  margin-top: 100px;
-}
-input {
-  padding: 10px;
-  font-size: 16px;
-}
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-}
-#message {
-  margin-top: 30px;
-  font-size: 20px;
-  font-weight: bold;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>メッセージ表示</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 80px;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    #message {
+      margin-top: 40px;
+      font-size: 20px;
+      font-weight: bold;
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
 <body>
 
-<h2>名前を入力してください</h2>
-<input type="text" id="name" placeholder="例：佐藤">
-<button onclick="showMessage()">表示</button>
+  <h1>名前を入力してください</h1>
 
-<div id="message"></div>
+  <input type="text" id="name" placeholder="例：石沢侑香">
+  <button onclick="showMessage()">表示</button>
 
-<script>
-function showMessage() {
-  const name = document.getElementById("name").value.trim();
-　const messages = {
-  "淺川謙友": "音友を支えてくれてありがとう。これからも自分らしくな。頑張れ。",
+  <div id="message"></div>
+
+  <script>
+    const messages = {
+
+       "淺川謙友": "音友を支えてくれてありがとう。これからも自分らしくな。頑張れ。",
   "熱田翼": "音友を好きになってくれてありがとう。さらなる飛躍へ。",
   "安部颯真": "最後の最後まで俺たちと一緒にいたな。みんなお前のことが大好きだ。信頼感はだれにも負けない。しっかり建て直せ。",
   "井関亜莉晏": "スピッツ組んでくれてありがとう。ニコニコドラムと見せかけた激強ビートを忘れない。",
@@ -163,12 +167,29 @@ function showMessage() {
   "横山裕子": "流した涙は裏切らない。うまくいかないことがあっても、挑戦した自分は変わらない。期待してるよ。頑張れ。",
   "吉井菜那子": "これからの未来を作りあげてくれ。仲間は周りにたくさんいるはずだ。もっと音友を好きになってくれよな。",
   "渡辺隼史": "大切にできる仲間がたくさんいる。一人じゃないよ。これからの音友をよろしくね。"
-};
-  
-  document.getElementById("message").innerText =
-    messages[name] || "メッセージが見つかりません。";
-}
-</script>
+  };
+
+    function normalize(text) {
+      return text.replace(/\s+/g, "");
+    }
+
+    function showMessage() {
+      const input = document.getElementById("name").value;
+      const normalizedInput = normalize(input);
+
+      let foundMessage = null;
+
+      for (const key in messages) {
+        if (normalize(key) === normalizedInput) {
+          foundMessage = messages[key];
+          break;
+        }
+      }
+
+      document.getElementById("message").innerText =
+        foundMessage || "メッセージが見つかりません。";
+    }
+  </script>
 
 </body>
 </html>
